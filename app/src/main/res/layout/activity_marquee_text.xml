@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lh.demos.widgets.marqueetext.MarqueeTextActivity">
+
+    <TextView
+        android:id="@+id/tv_text1"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/marquee_text"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:scrollHorizontally="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:singleLine="true"/>
+
+    <com.lh.demos.widgets.marqueetext.MarqueeTextView
+        android:id="@+id/marquee1"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/marquee_text"
+        android:textColor="#ff0000"
+        android:textSize="18sp"
+        app:scroll_first_delay="0"
+        app:scroll_interval="2000"
+        app:scroll_mode="mode_forever" />
+
+    <com.lh.demos.widgets.marqueetext.MarqueeTextView
+        android:id="@+id/marquee2"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/marquee_text"
+        android:textColor="#ffbb00"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/marquee1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/marquee1"
+        app:scroll_first_delay="0"
+        app:scroll_interval="10000"
+        app:scroll_mode="mode_forever" />
+
+    <com.lh.demos.widgets.marqueetext.MarqueeTextView
+        android:id="@+id/marquee3"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="10dp"
+        android:text="@string/marquee_text"
+        android:textColor="#2fff00"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/marquee2"
+        app:scroll_first_delay="1000"
+        app:scroll_interval="30000"
+        app:scroll_mode="mode_forever" />
+
+    <com.lh.demos.widgets.marqueetext.MarqueeTextView
+        android:id="@+id/marquee4"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="10dp"
+        android:text="@string/marquee_text"
+        android:textColor="#00e1ff"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/marquee3"
+        app:scroll_first_delay="0"
+        app:scroll_interval="10000"
+        app:scroll_mode="mode_once" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="start" />
+
+        <Button
+            android:id="@+id/btn_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="stop" />
+
+        <Button
+            android:id="@+id/btn_pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="pause" />
+
+        <Button
+            android:id="@+id/btn_resume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="resume" />
+    </LinearLayout>
+</LinearLayout>

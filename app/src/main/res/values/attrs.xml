@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MarqueeTextView">
+        <attr name="scroll_interval" format="integer" />
+        <attr name="scroll_first_delay" format="integer"/>
+        <attr name="scroll_mode">
+            <enum name="mode_forever" value="100"/>
+            <enum name="mode_once" value="101"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="RangeSeekbar">
+        <attr name="seekbarHeight" format="dimension" />
+        <attr name="textSize" format="dimension" />
+        <attr name="spaceBetween" format="dimension" />
+
+        <attr name="leftCursorBackground" format="reference" />
+        <attr name="rightCursorBackground" format="reference" />
+        <attr name="markTextArray" format="reference" />
+
+        <attr name="textColorNormal" format="color" />
+        <attr name="textColorSelected" format="color" />
+        <attr name="seekbarColorNormal" format="color" />
+        <attr name="seekbarColorSelected" format="color" />
+
+        <attr name="autoMoveDuration" format="integer" />
+    </declare-styleable>
+
+</resources>

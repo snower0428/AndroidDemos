@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lh.demos">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".main.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".paints.GraphicActivity" />
+        <activity android:name=".paints.PathTextActivity" />
+        <activity android:name=".paints.RegionActivity" />
+        <activity android:name=".paints.CanvasOperateActivity" />
+        <activity android:name=".paints.DrawTextActivity" />
+        <activity android:name=".paints.BezierActivity" />
+        <activity android:name=".paints.xfermode.XfermodeMainActivity" />
+        <activity android:name=".paints.xfermode.PorterDuffXfermodeActivity" />
+        <activity android:name=".paints.xfermode.PorterDuffXfermodeActivity2" />
+        <activity android:name=".paints.xfermode.LightBookActivity" />
+        <activity android:name=".paints.xfermode.TwitterActivity" />
+        <activity android:name=".paints.xfermode.RoundImageMaskActivity" />
+        <activity android:name=".paints.xfermode.InvertedImageMaskActivity" />
+        <activity android:name=".paints.xfermode.DogViewSRCOUTActivity" />
+        <activity android:name=".paints.xfermode.GuaGuaCardSRCOUTActivity" />
+        <activity android:name=".paints.xfermode.CircleWaveDSTINActivity" />
+        <activity android:name=".paints.xfermode.HeartMapActivity" />
+        <activity android:name=".paints.xfermode.IrregularWaveActivity" />
+        <activity android:name=".animation.AnimationMainActivity" />
+        <activity android:name=".widgets.marqueetext.MarqueeTextActivity" />
+        <activity android:name=".widgets.WidgetsMainActivity" />
+        <activity android:name=".widgets.viewpager.TabViewPagerActivity" />
+        <activity android:name=".widgets.rangeseekbar.RangeSeekBarActivity" />
+        <activity android:name=".animation.TweenAnimationActivity" />
+        <activity android:name=".animation.AnimationClickTestActivity" />
+        <activity android:name=".animation.OfObjectAnimationActivity" />
+        <activity android:name=".paints.PaintsMainActivity"></activity>
+    </application>
+
+</manifest>
