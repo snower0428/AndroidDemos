@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/btn_general_notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="General Notification"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/btn_folder_notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Folder Notification"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/btn_float_notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Float Notification"
+        android:textAllCaps="false"/>
+
+</LinearLayout>
