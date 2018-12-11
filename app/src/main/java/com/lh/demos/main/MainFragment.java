@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.lh.demos.R;
 import com.lh.demos.animation.AnimationMainActivity;
 import com.lh.demos.base.BaseBean;
+import com.lh.demos.base.BaseConstants;
 import com.lh.demos.base.SimpleListAdapter;
 import com.lh.demos.paints.PaintsMainActivity;
 import com.lh.demos.widgets.WidgetsMainActivity;
@@ -55,6 +56,7 @@ public class MainFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 BaseBean bean = mDataList.get(i);
                 Intent intent = new Intent(getActivity(), bean.getItemClass());
+                intent.putExtra(BaseConstants.NAVIGATION_TITLE_KEY, bean.getItemTitle());
                 getActivity().startActivity(intent);
             }
         });

@@ -8,11 +8,14 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lh.demos.R;
+import com.lh.demos.base.BaseConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +30,32 @@ public class SimpleRecyclerViewActivity extends AppCompatActivity implements Sim
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_recycler_view);
-
         initData();
+        initToolbar();
+        initView();
+    }
 
+    private void initData() {
+        for (int i = 0; i < 30; i++) {
+            String strValue = String.valueOf(i+1);
+            mDataList.add(strValue);
+        }
+    }
+
+    private void initToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_back_white);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        TextView tvTitle = findViewById(R.id.toolbar_title);
+        tvTitle.setText(getIntent().getStringExtra(BaseConstants.NAVIGATION_TITLE_KEY));
+    }
+
+    private void initView() {
         mRecyclerView = findViewById(R.id.recycler_view);
         // 设置布局管理器
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -41,13 +67,6 @@ public class SimpleRecyclerViewActivity extends AppCompatActivity implements Sim
         mAdapter = new SimpleRecyclerAdapter(this, mDataList);
         mAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
-    }
-
-    private void initData() {
-        for (int i = 0; i < 30; i++) {
-            String strValue = String.valueOf(i+1);
-            mDataList.add(strValue);
-        }
     }
 
     @Override

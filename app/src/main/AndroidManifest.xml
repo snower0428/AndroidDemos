@@ -11,7 +11,9 @@
         android:roundIcon="@drawable/logo_mini"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.MainActivity">
+        <activity
+            android:name=".main.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,7 +51,7 @@
         <activity android:name=".widgets.recyclerview.SimpleRecyclerViewActivity" />
         <activity android:name=".widgets.cardview.CardViewActivity" />
         <activity android:name=".widgets.notification.NotificationMainActivity" />
-        <activity android:name=".widgets.notification.NotificationJumpActivity"></activity>
+        <activity android:name=".widgets.notification.NotificationJumpActivity" />
     </application>
 
 </manifest>

@@ -7,6 +7,8 @@
     android:orientation="vertical"
     tools:context="com.lh.demos.widgets.rangeseekbar.RangeSeekBarActivity">
 
+    <include layout="@layout/common_header" />
+
     <!--<com.demo.lh.paints.demos.rangeseekbar.RangeSeekbar-->
         <!--xmlns:seekbar="http://schemas.android.com/apk/res-auto"-->
         <!--android:id="@+id/seekbar"-->

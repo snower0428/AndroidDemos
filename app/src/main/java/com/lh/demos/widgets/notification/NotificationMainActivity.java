@@ -11,10 +11,13 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.lh.demos.R;
+import com.lh.demos.base.BaseConstants;
 
 import java.io.File;
 
@@ -27,11 +30,25 @@ public class NotificationMainActivity extends AppCompatActivity implements View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_main);
         initData();
+        initToolbar();
         initView();
     }
 
     private void initData() {
         mContext = this;
+    }
+
+    private void initToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_back_white);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        TextView tvTitle = findViewById(R.id.toolbar_title);
+        tvTitle.setText(getIntent().getStringExtra(BaseConstants.NAVIGATION_TITLE_KEY));
     }
 
     private void initView() {

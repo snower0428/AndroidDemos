@@ -3,8 +3,12 @@ package com.lh.demos.widgets.viewpager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.TextView;
 
 import com.lh.demos.R;
+import com.lh.demos.base.BaseConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +21,7 @@ public class TabViewPagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_view_pager);
-
+        initToolbar();
         initView();
     }
 
@@ -37,5 +41,18 @@ public class TabViewPagerActivity extends AppCompatActivity {
 
         mRecyclerTabLayout = findViewById(R.id.recycler_tab_layout);
         mRecyclerTabLayout.setUpWithViewPager(viewPager);
+    }
+
+    private void initToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_back_white);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        TextView tvTitle = findViewById(R.id.toolbar_title);
+        tvTitle.setText(getIntent().getStringExtra(BaseConstants.NAVIGATION_TITLE_KEY));
     }
 }
