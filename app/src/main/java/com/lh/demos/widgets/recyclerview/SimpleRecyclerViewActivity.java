@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,6 +68,18 @@ public class SimpleRecyclerViewActivity extends AppCompatActivity implements Sim
         mAdapter = new SimpleRecyclerAdapter(this, mDataList);
         mAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
+
+        // 添加Header
+        View headerView = LayoutInflater.from(this).inflate(R.layout.simple_recycler_header, mRecyclerView, false);
+        mAdapter.addHeaderView(headerView);
+
+        // 添加Footer
+        View footerView = LayoutInflater.from(this).inflate(R.layout.simple_recycler_footer, mRecyclerView, false);
+        mAdapter.addFooterView(footerView);
+
+        // 添加Empty
+        View emptyView = LayoutInflater.from(this).inflate(R.layout.simple_recycler_empty, mRecyclerView, false);
+        mAdapter.setEmptyView(emptyView);
     }
 
     @Override
