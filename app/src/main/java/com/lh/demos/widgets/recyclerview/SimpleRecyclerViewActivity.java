@@ -1,6 +1,8 @@
 package com.lh.demos.widgets.recyclerview;
 
 import android.content.DialogInterface;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +17,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lh.core.config.Global;
+import com.lh.core.utils.ThreadUtil;
 import com.lh.demos.R;
 import com.lh.demos.base.BaseConstants;
 
@@ -23,24 +27,70 @@ import java.util.List;
 
 public class SimpleRecyclerViewActivity extends AppCompatActivity implements SimpleRecyclerItemListener {
 
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private SimpleRecyclerAdapter mAdapter;
-    private List<String> mDataList = new ArrayList<>();
+
+    private Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_recycler_view);
-        initData();
         initToolbar();
         initView();
+        loadData();
     }
 
-    private void initData() {
-        for (int i = 0; i < 30; i++) {
+    private void loadData() {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
             String strValue = String.valueOf(i+1);
-            mDataList.add(strValue);
+            list.add(strValue);
         }
+        mAdapter.setData(list);
+    }
+
+    private void loadMoreData() {
+        ThreadUtil.executeMore(new Runnable() {
+            @Override
+            public void run() {
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<String> list = new ArrayList<>();
+                        int index = mAdapter.getData().size();
+                        for (int i = 0; i < 10; i++) {
+                            String strValue = String.valueOf(index+i+1);
+                            list.add(strValue);
+                        }
+                        mAdapter.setLoadingMore(false);
+                        mAdapter.addData(list);
+                    }
+                }, 1000);
+            }
+        });
+    }
+
+    private void reloadData() {
+        ThreadUtil.executeMore(new Runnable() {
+            @Override
+            public void run() {
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mSwipeRefreshLayout.setRefreshing(false);
+
+                        List<String> list = new ArrayList<>();
+                        for (int i = 0; i < 20; i++) {
+                            String strValue = String.valueOf(i+1);
+                            list.add(strValue);
+                        }
+                        mAdapter.setData(list);
+                    }
+                }, 1000);
+            }
+        });
     }
 
     private void initToolbar() {
@@ -57,6 +107,13 @@ public class SimpleRecyclerViewActivity extends AppCompatActivity implements Sim
     }
 
     private void initView() {
+        mSwipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                reloadData();
+            }
+        });
         mRecyclerView = findViewById(R.id.recycler_view);
         // 设置布局管理器
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -65,7 +122,7 @@ public class SimpleRecyclerViewActivity extends AppCompatActivity implements Sim
         // 设置分割线
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         // 设置Adapter
-        mAdapter = new SimpleRecyclerAdapter(this, mDataList);
+        mAdapter = new SimpleRecyclerAdapter(this);
         mAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -80,6 +137,16 @@ public class SimpleRecyclerViewActivity extends AppCompatActivity implements Sim
         // 添加Empty
         View emptyView = LayoutInflater.from(this).inflate(R.layout.simple_recycler_empty, mRecyclerView, false);
         mAdapter.setEmptyView(emptyView);
+
+        // 添加LoadMore
+        View loadMoreView = LayoutInflater.from(this).inflate(R.layout.simple_recycler_load_more, mRecyclerView, false);
+        mAdapter.setLoadMoreView(loadMoreView);
+        mAdapter.setISimpleRecycler(new ISimpleRecycler() {
+            @Override
+            public void startLoadMore() {
+                loadMoreData();
+            }
+        });
     }
 
     @Override

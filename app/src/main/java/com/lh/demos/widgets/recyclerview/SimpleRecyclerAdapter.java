@@ -2,13 +2,19 @@ package com.lh.demos.widgets.recyclerview;
 
 import android.content.Context;
 import android.content.IntentFilter;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lh.core.config.Global;
 import com.lh.demos.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,19 +28,49 @@ public class SimpleRecyclerAdapter extends RecyclerView.Adapter<SimpleRecyclerVi
     private static final int ITEM_TYPE_HEADER = 1;
     private static final int ITEM_TYPE_FOOTER = 2;
     private static final int ITEM_TYPE_EMPTY = 3;
+    private static final int ITEM_TYPE_LOAD_MORE = 4;
 
     private Context mContext;
-    private List<String> mDataList;
+    private List<String> mDataList = new ArrayList<>();
     private SimpleRecyclerItemListener mItemListener;
 
     private View mHeaderView;
     private View mFooterView;
     private View mEmptyView;
+    private View mLoadMoreView;
 
-    public SimpleRecyclerAdapter(Context context, List<String> dataList) {
+    private ISimpleRecycler mISimpleRecycler;
+    private boolean mIsLoadingMore = false;
+
+    public SimpleRecyclerAdapter(Context context) {
         super();
         mContext = context;
-        mDataList = dataList;
+    }
+
+    public void addData(List<String> list) {
+        if (list != null && list.size() > 0) {
+            if (mDataList == null) {
+                mDataList = new ArrayList<>();
+            }
+            mDataList.addAll(list);
+            notifyDataSetChanged();
+        }
+    }
+
+    public void setData(List<String> list) {
+        if (list != null && list.size() > 0) {
+            if (mDataList == null) {
+                mDataList = new ArrayList<>();
+            } else {
+                mDataList.clear();
+            }
+            mDataList.addAll(list);
+            notifyDataSetChanged();
+        }
+    }
+
+    public List<String> getData() {
+        return mDataList;
     }
 
     public void removeItem(int position) {
@@ -63,6 +99,19 @@ public class SimpleRecyclerAdapter extends RecyclerView.Adapter<SimpleRecyclerVi
         notifyDataSetChanged();
     }
 
+    public void setLoadMoreView(View view) {
+        mLoadMoreView = view;
+        notifyDataSetChanged();
+    }
+
+    public void setISimpleRecycler(ISimpleRecycler simpleRecycler) {
+        mISimpleRecycler = simpleRecycler;
+    }
+
+    public void setLoadingMore(boolean loadingMore) {
+        mIsLoadingMore = loadingMore;
+    }
+
     @Override
     public SimpleRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == ITEM_TYPE_HEADER) {
@@ -71,6 +120,8 @@ public class SimpleRecyclerAdapter extends RecyclerView.Adapter<SimpleRecyclerVi
             return new SimpleRecyclerViewHolder(mFooterView);
         } else if (viewType == ITEM_TYPE_EMPTY) {
             return new SimpleRecyclerViewHolder(mEmptyView);
+        } else if (viewType == ITEM_TYPE_LOAD_MORE) {
+            return new SimpleRecyclerViewHolder(mLoadMoreView);
         } else {
             View view = LayoutInflater.from(mContext).inflate(R.layout.simple_recycler_item, parent, false);
             return new SimpleRecyclerViewHolder(view);
@@ -82,7 +133,8 @@ public class SimpleRecyclerAdapter extends RecyclerView.Adapter<SimpleRecyclerVi
         int itemViewType = getItemViewType(position);
         if (itemViewType == ITEM_TYPE_HEADER ||
                 itemViewType == ITEM_TYPE_FOOTER ||
-                itemViewType == ITEM_TYPE_EMPTY) {
+                itemViewType == ITEM_TYPE_EMPTY ||
+                itemViewType == ITEM_TYPE_LOAD_MORE) {
             return;
         }
         int realItemPosition = getRealItemPosition(position);
@@ -121,6 +173,9 @@ public class SimpleRecyclerAdapter extends RecyclerView.Adapter<SimpleRecyclerVi
         if (mFooterView != null) {
             itemCount++;
         }
+        if (mLoadMoreView != null && mDataList.size() > 10) {
+            itemCount++;
+        }
         return itemCount;
     }
 
@@ -135,7 +190,50 @@ public class SimpleRecyclerAdapter extends RecyclerView.Adapter<SimpleRecyclerVi
         if (mEmptyView != null && mDataList.size() == 0) {
             return ITEM_TYPE_EMPTY;
         }
+        if (mLoadMoreView != null && position == getItemCount() - 2) {
+            return ITEM_TYPE_LOAD_MORE;
+        }
         return ITEM_TYPE_NORMAL;
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                /*
+                 * 在这里判段是否滑动到了最后一条数据
+                 *
+                 * LinearLayoutManager、GridLayoutManager、StaggeredGridLayoutManager都提供了一个叫做
+                 * public int findLastVisibleItemPositions()的方法
+                 * 这个方法会返回当前可见的最后一条Item的 position
+                 * 当 position == 我们的真实数据的长度-1时即表示滑到了最后
+                 * 这时我们就可以触发上拉加载更多了
+                 */
+                int position = findLastVisibleItemPosition(recyclerView);
+                if (position == getItemCount() - 1) {
+                    if (mISimpleRecycler != null) {
+                        if (!mIsLoadingMore) {
+                            mISimpleRecycler.startLoadMore();
+                        }
+                        mIsLoadingMore = true;
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
     }
 
     private int getRealItemPosition(int position) {
@@ -143,5 +241,30 @@ public class SimpleRecyclerAdapter extends RecyclerView.Adapter<SimpleRecyclerVi
             return position - 1;
         }
         return position;
+    }
+
+    private int findLastVisibleItemPosition(RecyclerView recyclerView) {
+        int position;
+        RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+        if (layoutManager instanceof LinearLayoutManager) {
+            position = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
+        } else if (layoutManager instanceof GridLayoutManager) {
+            position = ((GridLayoutManager) layoutManager).findLastVisibleItemPosition();
+        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
+            StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
+            int[] lastPositions = staggeredGridLayoutManager.findLastVisibleItemPositions(new int[staggeredGridLayoutManager.getSpanCount()]);
+            position = findMaxPosition(lastPositions);
+        } else {
+            position = recyclerView.getLayoutManager().getItemCount() - 1;
+        }
+        return position;
+    }
+
+    private int findMaxPosition(int[] positions) {
+        int maxPosition = 0;
+        for (int position : positions) {
+            maxPosition = Math.max(maxPosition, position);
+        }
+        return maxPosition;
     }
 }
