@@ -13,6 +13,7 @@ import com.lh.demos.base.BaseActivity;
 import com.lh.demos.base.BaseBean;
 import com.lh.demos.base.BaseConstants;
 import com.lh.demos.base.SimpleListAdapter;
+import com.lh.demos.widgets.audiocut.AudioCutActivity;
 import com.lh.demos.widgets.cardview.CardViewActivity;
 import com.lh.demos.widgets.marqueetext.MarqueeTextActivity;
 import com.lh.demos.widgets.notification.NotificationMainActivity;
@@ -71,5 +72,6 @@ public class WidgetsMainActivity extends BaseActivity {
         mDataList.add(new BaseBean("ViewPager", TabViewPagerActivity.class));
         mDataList.add(new BaseBean("Marquee Text", MarqueeTextActivity.class));
         mDataList.add(new BaseBean("Range Seek Bar", RangeSeekBarActivity.class));
+        mDataList.add(new BaseBean("AudioCut", AudioCutActivity.class));
     }
 }

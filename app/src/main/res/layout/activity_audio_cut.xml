@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".widgets.audiocut.AudioCutActivity">
+
+    <TextView android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/tv"
+        android:text="从 0.0 秒开始"
+        android:layout_margin="10dp"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <com.lh.demos.widgets.audiocut.AudioTrackScrollView
+            android:id="@+id/stv"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:scrollbars="none"
+            android:fadingEdge="none"
+            app:foreground_color="@color/colorAccent"
+            app:background_color="@color/colorPrimary"
+            app:loop_run="false"
+            app:cut_duration="10000"
+            app:auto_run="true"
+            />
+    </RelativeLayout>
+
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:max="100"
+        android:progress="0"
+        android:id="@+id/seek_bar"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="重头开始播"
+        android:layout_margin="10dp"
+        android:id="@+id/btnRestart"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="暂停"
+        android:layout_margin="10dp"
+        android:id="@+id/btnPause"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="停止"
+        android:layout_margin="10dp"
+        android:id="@+id/btnStop"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开始"
+        android:layout_margin="10dp"
+        android:id="@+id/btnStart"
+        />
+</LinearLayout>
