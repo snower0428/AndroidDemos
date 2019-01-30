@@ -52,7 +52,8 @@
         <activity android:name=".widgets.cardview.CardViewActivity" />
         <activity android:name=".widgets.notification.NotificationMainActivity" />
         <activity android:name=".widgets.notification.NotificationJumpActivity" />
-        <activity android:name=".widgets.audiocut.AudioCutActivity"></activity>
+        <activity android:name=".widgets.audiocut.AudioCutActivity" />
+        <activity android:name=".paints.xfermode.DstInDemoActivity"></activity>
     </application>
 
 </manifest>

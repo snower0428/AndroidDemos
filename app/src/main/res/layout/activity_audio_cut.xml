@@ -19,18 +19,40 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp">
 
+        <!--<com.lh.demos.widgets.audiocut.AudioTrackScrollView-->
+            <!--android:id="@+id/stv_bg"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="90dp"-->
+            <!--android:scrollbars="none"-->
+            <!--android:fadingEdge="none"-->
+            <!--app:foreground_color="@android:color/darker_gray"-->
+            <!--app:background_color="@android:color/darker_gray"-->
+            <!--app:loop_run="false" />-->
+
         <com.lh.demos.widgets.audiocut.AudioTrackScrollView
             android:id="@+id/stv"
             android:layout_width="match_parent"
             android:layout_height="90dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
             android:scrollbars="none"
             android:fadingEdge="none"
+            android:background="@android:color/transparent"
             app:foreground_color="@color/colorAccent"
             app:background_color="@color/colorPrimary"
-            app:loop_run="false"
-            app:cut_duration="10000"
-            app:auto_run="true"
-            />
+            app:loop_run="true" />
+
+        <!--<TextView-->
+            <!--android:layout_width="30dp"-->
+            <!--android:layout_height="90dp"-->
+            <!--android:background="@color/cardview_dark_background"/>-->
+
+        <!--<TextView-->
+            <!--android:layout_width="30dp"-->
+            <!--android:layout_height="90dp"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:background="@color/cardview_dark_background"/>-->
     </RelativeLayout>
 
 

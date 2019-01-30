@@ -27,11 +27,31 @@ public class AudioCutActivity extends AppCompatActivity {
         //1.每个Track小块的数据,不设置也可以，有默认
         //float[] template = {0.9f,0.6f,0.7f,0.5f,0.8f,0.4f,0.5f,0.2f,0.6f,0.8f,0.8f};
 
+        int count = 88;
+        float[] data = new float[count];
+        for (int i = 0; i < count; i++) {
+            float random = 30 + (((float) Math.random() * 100) % 60);
+            data[i] = random / 100;
+        }
+
+//        float[] data2 = new float[count - 8];
+//        for (int i = 0; i < data2.length; i++) {
+//            data2[i] = data[i];
+//        }
+
+//        final AudioTrackScrollView stv_bg = findViewById(R.id.stv_bg);
+//        stv_bg.setTrackTemplateData(data2);
+//        stv_bg.setContinueMove(true);
+
         //stv.setTrackTemplateData(template);
-        stv.setDuration(20000); // 音频时间
+        stv.setTrackTemplateData(data);
+        stv.setDuration(80000); // 音频时间
         stv.setCutDuration(10000);//屏幕左边跑到右边持续的时间
+        stv.setStartTime(0);
+        stv.setEmptyWidth(4);
+//        stv.setTrackOffsetCount(4);
         //stv.setTrackFragmentCount(30);//1 中是一个片段，这个参数表示重复1中片段画10次
-        stv.setLoopRun(true);//设置是否循环跑进度
+        //stv.setLoopRun(true);//设置是否循环跑进度
         //stv.setSpaceSize(18);
         //stv.setTrackItemWidth(18);
         stv.setOnProgressRunListener(new AudioTrackScrollView.OnProgressRunListener() {
@@ -50,6 +70,26 @@ public class AudioCutActivity extends AppCompatActivity {
 
             }
         });
+
+//        stv.setOnScrollListener(new AudioTrackScrollView.OnScrollListener() {
+//            @Override
+//            public void onScroll(AudioTrackScrollView scrollTrackView) {
+//                int scrollX = scrollTrackView.getScrollX();
+//                stv_bg.setScrollX(scrollX);
+//            }
+//
+//            @Override
+//            public void onScrollEnd(AudioTrackScrollView scrollTrackView) {
+//                int scrollX = scrollTrackView.getScrollX();
+//                stv_bg.setScrollX(scrollX);
+//            }
+//
+//            @Override
+//            public void onFling(AudioTrackScrollView scrollTrackView) {
+//                int scrollX = scrollTrackView.getScrollX();
+//                stv_bg.setScrollX(scrollX);
+//            }
+//        });
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override

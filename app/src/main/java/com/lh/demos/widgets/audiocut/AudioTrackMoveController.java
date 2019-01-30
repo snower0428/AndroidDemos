@@ -47,6 +47,8 @@ public class AudioTrackMoveController {
                     if (isCanRun) {
                         if (isLoopRun) {
                             //移动到最右边的时候，重新从启始位置开始移动
+//                            Log.d("lh123", "mProgress:" + mProgress + ",mScrollTrackStartX:" + mScrollTrackStartX +
+//                                    ",mScrollTrackViewWidth:" + mScrollTrackViewWidth);
                             if ((mProgress - mScrollTrackStartX) >= mScrollTrackViewWidth) {
                                 mProgress = mScrollTrackStartX;
                                 mListener.onProgressEnd();

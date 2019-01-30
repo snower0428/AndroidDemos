@@ -6,12 +6,14 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 
 import com.lh.core.utils.ScreenUtil;
 import com.lh.demos.R;
+
 
 /**
  * Created by leihui on 2018/12/29.
@@ -29,12 +31,14 @@ public class AudioTrackScrollView extends HorizontalScrollView {
     private int mForegroundColor = Color.BLUE;
     private int mSpaceSize;
     private int mTrackItemWidth;
+    private int mMaskWidth;
     private int mDelayTime = 20;//ms
     private int mTrackFragmentCount = 1;
     private boolean isAutoRun = true;//是否自动跑进度
     private boolean isLoopRun = false;//是否循环跑进度
     private int mCutDuration = 10 * 1000;//裁剪区间，也就是控件左边，跑到右边的时间
     private float mSpeed = 10;
+    private boolean mIsUseDefaultWidth = false; //是否使用track原始宽度
 
     /**
      * 滚动状态:
@@ -61,6 +65,10 @@ public class AudioTrackScrollView extends HorizontalScrollView {
     private AudioTrackMoveController moveController;
 
     private int audioDuration;
+    private int emptyWidth;
+    private int startTime;
+
+    private int downX;
 
     public AudioTrackScrollView(Context context) {
         super(context);
@@ -92,8 +100,9 @@ public class AudioTrackScrollView extends HorizontalScrollView {
     }
 
     private void initView(final Context context) {
-        mSpaceSize = ScreenUtil.dip2px(context, 3);
-        mTrackItemWidth = ScreenUtil.dip2px(context, 6);
+        mSpaceSize = ScreenUtil.dip2px(context, 2.5f);
+        mTrackItemWidth = ScreenUtil.dip2px(context, 5);
+        mMaskWidth = (mTrackItemWidth + mSpaceSize) * 4;
 
         track = new AudioTrackView(context);
         track.setBackgroundColorInt(mBackgroundColor);
@@ -101,6 +110,10 @@ public class AudioTrackScrollView extends HorizontalScrollView {
         track.setSpaceSize(mSpaceSize);
         track.setTrackFragmentCount(mTrackFragmentCount);
         track.setTrackItemWidth(mTrackItemWidth);
+        track.setMaskWidth(mMaskWidth);
+
+//        emptyWidth = (mTrackItemWidth + mSpaceSize) * 0;
+//        track.setEmptyWidth(emptyWidth);
 
         HorizontalScrollView.LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         addView(track, lp);
@@ -128,6 +141,8 @@ public class AudioTrackScrollView extends HorizontalScrollView {
                 }
             }
         });
+        //moveController.setCurrentProgressPosition(mMaskWidth);
+        //moveController.setScrollTrackStartX(mMaskWidth);
 
 //        post(new Runnable() {
 //            @Override
@@ -153,7 +168,7 @@ public class AudioTrackScrollView extends HorizontalScrollView {
                 switch (scrollStatus) {
                     case IDLE:
                         if (moveController != null) {
-                            moveController.setScrollTrackStartX(getScrollX());
+                            moveController.setScrollTrackStartX(getScrollX() + mMaskWidth);
                             moveController.continueRun();
                         }
                         if (mProgressRunListener != null) {
@@ -246,6 +261,7 @@ public class AudioTrackScrollView extends HorizontalScrollView {
                 }
             }
             currentX = getScrollX();
+            track.setOffsetX(getScrollX());
             //滚动监听间隔:milliseconds
             mScrollHandler.postDelayed(this, 20);
         }
@@ -254,10 +270,29 @@ public class AudioTrackScrollView extends HorizontalScrollView {
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                downX = (int) ev.getX();
+                break;
             case MotionEvent.ACTION_MOVE:
+                //向右滚动
+                if (ev.getX() < downX) {
+                    int startTime = getStartTime();
+                    if (startTime + mCutDuration >= audioDuration) {
+                        return true;
+                    }
+                }
                 this.scrollStatus = ScrollStatus.TOUCH_SCROLL;
                 mOnScrollTrackListener.onScrollChanged(scrollStatus);
                 mScrollHandler.removeCallbacks(scrollRunnable);
+
+//                int touchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+//                int absX = (int) Math.abs(ev.getX() - downX);
+//                if (absX > touchSlop) {
+//                    Log.d("lh123", "currentX:" + getScrollX());
+//                    track.setOffsetX(getScrollX());
+//                }
+                track.setOffsetX(getScrollX());
+                Log.d("lh123", "currentX:" + getScrollX());
                 break;
             case MotionEvent.ACTION_UP:
                 mScrollHandler.post(scrollRunnable);
@@ -297,8 +332,17 @@ public class AudioTrackScrollView extends HorizontalScrollView {
      */
     public void startMove() {
         //设置进度参数
-        moveController.setScrollTrackViewWidth(getWidth());
-        mSpeed = ((getWidth() * 1f) / (mCutDuration * 1f));//根据时间和控件的宽度计算速度
+        int trackWidth = getWidth() - emptyWidth - mMaskWidth;
+//        if (mIsUseDefaultWidth) {
+//            trackWidth = getWidth() - mMaskWidth * 2;
+//        }
+        if (mCutDuration / 1000 < 22) {
+            trackWidth = (mTrackItemWidth + mSpaceSize) * (mCutDuration / 1000);
+        } else {
+            trackWidth = (mTrackItemWidth + mSpaceSize) * 22;
+        }
+        moveController.setScrollTrackViewWidth(trackWidth);
+        mSpeed = (trackWidth * 1f) / (mCutDuration * 1f);//根据时间和控件的宽度计算速度
         float delayTime = 1f / mSpeed;//根据速度来算走每个像素点需要多久时间
         moveController.setDelayTime(Math.round(delayTime));//四舍五入
         moveController.setLoopRun(isLoopRun);
@@ -352,14 +396,49 @@ public class AudioTrackScrollView extends HorizontalScrollView {
      */
     public void setDuration(int ms) {
         audioDuration = ms;
+        mIsUseDefaultWidth = false;
+        int count = ms / 1000;
+        if (count <= 30) {
+            count = 30;
+            mIsUseDefaultWidth = true;
+        }
+        track.setTrackTemplateCount(count);
     }
 
     /**
      * 获取歌曲开始时间 (毫秒)
      */
     public int getStartTime() {
-        float rate = Math.abs(getScrollX()) / (track.getWidth() * 1f);
-        return (int) (audioDuration * rate);
+        int retValue = 0;
+        if (getScrollX() % (mTrackItemWidth + mSpaceSize) == 0) {
+            retValue = getScrollX() / (mTrackItemWidth + mSpaceSize);
+        } else {
+            retValue = getScrollX() / (mTrackItemWidth + mSpaceSize) + 1;
+        }
+        return retValue * 1000;
+
+        //float rate = Math.abs(getScrollX()) / ((track.getWidth() - emptyWidth) * 1f);
+        //return (int) (audioDuration * rate);
+    }
+
+    public void setStartTime(final int startTime) {
+        this.startTime = startTime;
+
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                float rate = (float) startTime / (float) audioDuration;
+                int scrollX = (int) (track.getWidth() * rate);
+                //smoothScrollTo(scrollX, 0);
+                setScrollX(scrollX);
+                track.setOffsetX(getScrollX());
+
+                if (moveController != null) {
+                    moveController.setCurrentProgressPosition(scrollX);
+                    moveController.setScrollTrackStartX(scrollX + mMaskWidth);
+                }
+            }
+        }, 100);
     }
 
     public void setProgressContinue(boolean isContinue) {
@@ -380,10 +459,42 @@ public class AudioTrackScrollView extends HorizontalScrollView {
         }
     }
 
+    public void setEmptyWidth(int second) {
+        if (second > 0) {
+            emptyWidth = (mTrackItemWidth + mSpaceSize) * second;
+            track.setEmptyWidth(emptyWidth);
+        }
+    }
+
+    public int getTrackItemWidth() {
+        return mTrackItemWidth;
+    }
+
+    public int getSpaceSize() {
+        return mSpaceSize;
+    }
+
+    public int getTrackWidth() {
+        return track.getWidth();
+    }
+
+    public void setMaskWidth(int maskWidth) {
+        track.setMaskWidth(maskWidth);
+    }
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         stopMove();
+    }
+
+    /**
+     * @param velocityX 阻尼
+     * 将惯性滚动速度缩小1000倍，近似drag操作。
+     */
+    @Override
+    public void fling(int velocityX) {
+        super.fling(velocityX / 1000);
     }
 
     private interface OnScrollTrackListener {

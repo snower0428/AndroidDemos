@@ -69,5 +69,6 @@ public class XfermodeMainFragment extends Fragment {
         mDataList.add(new BaseBean("CircleWaveDstIn", CircleWaveDSTINActivity.class));
         mDataList.add(new BaseBean("HeartMapDstIn", HeartMapActivity.class));
         mDataList.add(new BaseBean("IrregularWaveDstIn", IrregularWaveActivity.class));
+        mDataList.add(new BaseBean("DstInTest", DstInDemoActivity.class));
     }
 }
