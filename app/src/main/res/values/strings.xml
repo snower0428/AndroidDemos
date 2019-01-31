@@ -2,4 +2,11 @@
     <string name="app_name">Demos</string>
 
     <string name="marquee_text">他来听我的演唱会</string>
+
+    <!-- Common -->
+    <string name="ok">OK</string>
+    <string name="confirm">确定</string>
+    <string name="delete">删除</string>
+    <string name="cancel">取消</string>
+    <string name="delete_confirm">确定要删除吗？</string>
 </resources>
