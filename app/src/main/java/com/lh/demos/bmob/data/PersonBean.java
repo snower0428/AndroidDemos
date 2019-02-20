@@ -1,4 +1,4 @@
-package com.lh.demos.bmob;
+package com.lh.demos.bmob.data;
 
 import cn.bmob.v3.BmobObject;
 

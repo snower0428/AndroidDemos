@@ -1,4 +1,4 @@
-package com.lh.demos.bmob;
+package com.lh.demos.bmob.data;
 
 /**
  * Created by leihui on 2019/1/31.

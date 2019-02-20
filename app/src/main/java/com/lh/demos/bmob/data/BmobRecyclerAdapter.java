@@ -1,4 +1,4 @@
-package com.lh.demos.bmob;
+package com.lh.demos.bmob.data;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

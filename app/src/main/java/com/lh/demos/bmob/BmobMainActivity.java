@@ -13,6 +13,8 @@ import com.lh.demos.base.BaseActivity;
 import com.lh.demos.base.BaseBean;
 import com.lh.demos.base.BaseConstants;
 import com.lh.demos.base.SimpleListAdapter;
+import com.lh.demos.bmob.data.BmobDemoActivity;
+import com.lh.demos.bmob.push.BmobPushActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +61,7 @@ public class BmobMainActivity extends BaseActivity {
     }
 
     private void initData() {
-        mDataList.add(new BaseBean("Bmob demo", BmobDemoActivity.class));
+        mDataList.add(new BaseBean("Data", BmobDemoActivity.class));
+        mDataList.add(new BaseBean("Push", BmobPushActivity.class));
     }
 }
