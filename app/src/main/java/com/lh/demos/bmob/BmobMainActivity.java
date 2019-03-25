@@ -3,6 +3,7 @@ package com.lh.demos.bmob;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -63,5 +64,36 @@ public class BmobMainActivity extends BaseActivity {
     private void initData() {
         mDataList.add(new BaseBean("Data", BmobDemoActivity.class));
         mDataList.add(new BaseBean("Push", BmobPushActivity.class));
+
+        List<Integer> list = new ArrayList<>();
+        int array[] = {4, 5, 8, 3, 1, 2, 10, 29, 6};
+        for (int i = 0; i < array.length; i++) {
+            list.add(array[i]);
+        }
+        Log.d("lh123", "Before:" + list);
+        List<Integer> resultList = quickSort(list);
+        Log.d("lh123", "After:" + resultList);
+    }
+
+    private List<Integer> quickSort(List<Integer> list) {
+        if (list.size() < 2) {
+            return list;
+        } else {
+            Integer pivot = list.get(0);
+            List<Integer> less = new ArrayList<>();
+            List<Integer> greater = new ArrayList<>();
+            for (Integer item : list) {
+                if (item < pivot) {
+                    less.add(item);
+                } else if (item > pivot) {
+                    greater.add(item);
+                }
+            }
+            List<Integer> result = new ArrayList<>();
+            result.addAll(quickSort(less));
+            result.add(pivot);
+            result.addAll(quickSort(greater));
+            return result;
+        }
     }
 }
