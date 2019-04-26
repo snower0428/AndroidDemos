@@ -44,7 +44,7 @@ public class SimpleRecyclerViewActivity extends AppCompatActivity implements Sim
 
     private void loadData() {
         List<String> list = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 30; i++) {
             String strValue = String.valueOf(i+1);
             list.add(strValue);
         }
@@ -60,7 +60,7 @@ public class SimpleRecyclerViewActivity extends AppCompatActivity implements Sim
                     public void run() {
                         List<String> list = new ArrayList<>();
                         int index = mAdapter.getData().size();
-                        for (int i = 0; i < 10; i++) {
+                        for (int i = 0; i < 20; i++) {
                             String strValue = String.valueOf(index+i+1);
                             list.add(strValue);
                         }

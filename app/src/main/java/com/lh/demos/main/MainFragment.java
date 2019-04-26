@@ -16,6 +16,7 @@ import com.lh.demos.base.BaseBean;
 import com.lh.demos.base.BaseConstants;
 import com.lh.demos.base.SimpleListAdapter;
 import com.lh.demos.bmob.BmobMainActivity;
+import com.lh.demos.designs.DesignsMainActivity;
 import com.lh.demos.paints.PaintsMainActivity;
 import com.lh.demos.widgets.WidgetsMainActivity;
 
@@ -68,5 +69,6 @@ public class MainFragment extends Fragment {
         mDataList.add(new BaseBean("Animations", AnimationMainActivity.class));
         mDataList.add(new BaseBean("Paints", PaintsMainActivity.class));
         mDataList.add(new BaseBean("Bmob", BmobMainActivity.class));
+        mDataList.add(new BaseBean("Designs", DesignsMainActivity.class));
     }
 }

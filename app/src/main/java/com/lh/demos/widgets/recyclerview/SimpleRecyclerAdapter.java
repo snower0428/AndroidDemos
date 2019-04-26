@@ -114,6 +114,7 @@ public class SimpleRecyclerAdapter extends RecyclerView.Adapter<SimpleRecyclerVi
 
     @Override
     public SimpleRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.d("lh123", "onCreateViewHolder");
         if (viewType == ITEM_TYPE_HEADER) {
             return new SimpleRecyclerViewHolder(mHeaderView);
         } else if (viewType == ITEM_TYPE_FOOTER) {
