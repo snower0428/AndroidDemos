@@ -5,6 +5,7 @@ import android.util.Log;
 /**
  * Created by leihui on 2019/3/25.
  * MallardDuck
+ * 绿头鸭
  */
 
 public class MallardDuck extends Duck {

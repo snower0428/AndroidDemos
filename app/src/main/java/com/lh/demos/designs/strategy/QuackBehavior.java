@@ -6,5 +6,6 @@ package com.lh.demos.designs.strategy;
  */
 
 public interface QuackBehavior {
+
     public void quack();
 }

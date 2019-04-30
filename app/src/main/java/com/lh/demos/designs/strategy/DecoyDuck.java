@@ -5,6 +5,7 @@ import android.util.Log;
 /**
  * Created by leihui on 2019/3/25.
  * DecoyDuck
+ * 诱饵鸭
  */
 
 public class DecoyDuck extends Duck {
