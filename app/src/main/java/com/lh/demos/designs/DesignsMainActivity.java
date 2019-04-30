@@ -13,6 +13,7 @@ import com.lh.demos.base.BaseActivity;
 import com.lh.demos.base.BaseBean;
 import com.lh.demos.base.BaseConstants;
 import com.lh.demos.base.SimpleListAdapter;
+import com.lh.demos.designs.observer.ObserverActivity;
 import com.lh.demos.designs.strategy.StrategyActivity;
 
 import java.util.ArrayList;
@@ -61,6 +62,7 @@ public class DesignsMainActivity extends BaseActivity {
     }
 
     private void initData() {
-        mDataList.add(new BaseBean("Duck", StrategyActivity.class));
+        mDataList.add(new BaseBean("Strategy", StrategyActivity.class));
+        mDataList.add(new BaseBean("Observer", ObserverActivity.class));
     }
 }
