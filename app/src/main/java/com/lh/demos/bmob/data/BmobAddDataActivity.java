@@ -1,25 +1,23 @@
 package com.lh.demos.bmob.data;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lh.demos.R;
+import com.lh.demos.base.BaseAppCompatActivity;
 import com.lh.demos.base.BaseConstants;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
-public class BmobAddDataActivity extends AppCompatActivity implements View.OnClickListener {
+public class BmobAddDataActivity extends BaseAppCompatActivity implements View.OnClickListener {
 
     public static final int ADD_RESULT_CODE = 0;
     public static final int ADD_REQUEST_CODE = 1;
@@ -42,6 +40,8 @@ public class BmobAddDataActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bmob_add_data);
 
+        setTitle(getIntent().getStringExtra(BaseConstants.NAVIGATION_TITLE_KEY));
+
         Intent intent = getIntent();
         mName = intent.getStringExtra(NAME_KEY);
         mAddress = intent.getStringExtra(ADDRESS_KEY);
@@ -50,21 +50,7 @@ public class BmobAddDataActivity extends AppCompatActivity implements View.OnCli
             mIsUpdate = true;
         }
 
-        initToolbar();
         initView();
-    }
-
-    private void initToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_back_white);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-        TextView tvTitle = findViewById(R.id.toolbar_title);
-        tvTitle.setText(getIntent().getStringExtra(BaseConstants.NAVIGATION_TITLE_KEY));
     }
 
     private void initView() {

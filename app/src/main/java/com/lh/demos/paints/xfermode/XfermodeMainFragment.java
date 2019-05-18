@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.lh.demos.R;
 import com.lh.demos.base.BaseBean;
+import com.lh.demos.base.BaseConstants;
 import com.lh.demos.base.SimpleListAdapter;
 
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ public class XfermodeMainFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 BaseBean bean = mDataList.get(i);
                 Intent intent = new Intent(getActivity(), bean.getItemClass());
+                intent.putExtra(BaseConstants.NAVIGATION_TITLE_KEY, bean.getItemTitle());
                 getActivity().startActivity(intent);
             }
         });

@@ -6,6 +6,4 @@
     android:layout_height="match_parent"
     tools:context="com.lh.demos.designs.strategy.StrategyActivity">
 
-    <include layout="@layout/common_header" />
-
 </LinearLayout>

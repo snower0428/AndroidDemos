@@ -4,28 +4,25 @@ import android.content.DialogInterface;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lh.core.config.Global;
 import com.lh.core.utils.ThreadUtil;
 import com.lh.demos.R;
+import com.lh.demos.base.BaseAppCompatActivity;
 import com.lh.demos.base.BaseConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleRecyclerViewActivity extends AppCompatActivity implements SimpleRecyclerItemListener {
+public class SimpleRecyclerViewActivity extends BaseAppCompatActivity implements SimpleRecyclerItemListener {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
@@ -37,7 +34,8 @@ public class SimpleRecyclerViewActivity extends AppCompatActivity implements Sim
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_recycler_view);
-        initToolbar();
+
+        setTitle(getIntent().getStringExtra(BaseConstants.NAVIGATION_TITLE_KEY));
         initView();
         loadData();
     }
@@ -91,19 +89,6 @@ public class SimpleRecyclerViewActivity extends AppCompatActivity implements Sim
                 }, 1000);
             }
         });
-    }
-
-    private void initToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_back_white);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-        TextView tvTitle = findViewById(R.id.toolbar_title);
-        tvTitle.setText(getIntent().getStringExtra(BaseConstants.NAVIGATION_TITLE_KEY));
     }
 
     private void initView() {

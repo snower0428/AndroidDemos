@@ -14,7 +14,7 @@ import com.lh.demos.R;
  * BaseFragmentActivity
  */
 
-public abstract class BaseFragmentActivity extends AppCompatActivity {
+public abstract class BaseFragmentActivity extends BaseAppCompatActivity {
 
     protected abstract Fragment createFragment();
 

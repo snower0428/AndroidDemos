@@ -1,7 +1,6 @@
 package com.lh.demos.animation;
 
 import android.animation.ValueAnimator;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -9,8 +8,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.lh.demos.R;
+import com.lh.demos.base.BaseAppCompatActivity;
 
-public class OfObjectAnimationActivity extends AppCompatActivity implements View.OnClickListener {
+public class OfObjectAnimationActivity extends BaseAppCompatActivity implements View.OnClickListener {
 
     private Button mBtnStart;
     private Button mBtnCancel;
@@ -25,6 +25,8 @@ public class OfObjectAnimationActivity extends AppCompatActivity implements View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_of_object_animation);
+
+        setTitle("OfObjectAnimation");
 
         mBtnStart = findViewById(R.id.btn_start);
         mBtnStart.setOnClickListener(this);

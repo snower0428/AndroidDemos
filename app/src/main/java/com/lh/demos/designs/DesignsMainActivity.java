@@ -9,17 +9,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.lh.demos.R;
-import com.lh.demos.base.BaseActivity;
+import com.lh.demos.base.BaseAppCompatActivity;
 import com.lh.demos.base.BaseBean;
 import com.lh.demos.base.BaseConstants;
 import com.lh.demos.base.SimpleListAdapter;
+import com.lh.demos.designs.decorator.DecoratorActivity;
 import com.lh.demos.designs.observer.ObserverActivity;
 import com.lh.demos.designs.strategy.StrategyActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DesignsMainActivity extends BaseActivity {
+public class DesignsMainActivity extends BaseAppCompatActivity {
 
     private List<BaseBean> mDataList = new ArrayList<>();
 
@@ -28,22 +29,9 @@ public class DesignsMainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_designs_main);
 
+        setTitle(getIntent().getStringExtra(BaseConstants.NAVIGATION_TITLE_KEY));
         initData();
-        initToolbar();
         initView();
-    }
-
-    private void initToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_back_white);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-        TextView tvTitle = findViewById(R.id.toolbar_title);
-        tvTitle.setText(getIntent().getStringExtra(BaseConstants.NAVIGATION_TITLE_KEY));
     }
 
     private void initView() {
@@ -64,5 +52,6 @@ public class DesignsMainActivity extends BaseActivity {
     private void initData() {
         mDataList.add(new BaseBean("Strategy", StrategyActivity.class));
         mDataList.add(new BaseBean("Observer", ObserverActivity.class));
+        mDataList.add(new BaseBean("Decorator", DecoratorActivity.class));
     }
 }

@@ -2,7 +2,6 @@ package com.lh.demos.animation;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,8 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lh.demos.R;
+import com.lh.demos.base.BaseAppCompatActivity;
 
-public class AnimationClickTestActivity extends AppCompatActivity {
+public class AnimationClickTestActivity extends BaseAppCompatActivity {
 
     private TextView mTextView;
     private ValueAnimator mAnimator;
@@ -23,6 +23,8 @@ public class AnimationClickTestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animation_click_test);
+
+        setTitle("AnimcationClickTest");
 
         Button btn1 = findViewById(R.id.btn_1);
         Button btn2 = findViewById(R.id.btn_2);

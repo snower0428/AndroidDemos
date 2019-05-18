@@ -8,13 +8,17 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.lh.demos.R;
+import com.lh.demos.base.BaseAppCompatActivity;
+import com.lh.demos.base.BaseConstants;
 
-public class AudioCutActivity extends AppCompatActivity {
+public class AudioCutActivity extends BaseAppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio_cut);
+
+        setTitle(getIntent().getStringExtra(BaseConstants.NAVIGATION_TITLE_KEY));
 
         final AudioTrackScrollView stv = findViewById(R.id.stv);
         Button btn = findViewById(R.id.btnRestart);

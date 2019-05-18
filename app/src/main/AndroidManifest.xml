@@ -137,7 +137,8 @@
         <!--  -->
         <activity android:name=".designs.DesignsMainActivity" />
         <activity android:name=".designs.strategy.StrategyActivity" />
-        <activity android:name=".designs.observer.ObserverActivity"></activity>
+        <activity android:name=".designs.observer.ObserverActivity" />
+        <activity android:name=".designs.decorator.DecoratorActivity"></activity>
     </application>
 
 </manifest>

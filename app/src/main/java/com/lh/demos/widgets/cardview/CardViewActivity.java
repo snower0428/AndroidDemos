@@ -1,17 +1,14 @@
 package com.lh.demos.widgets.cardview;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
 import com.lh.demos.R;
+import com.lh.demos.base.BaseAppCompatActivity;
 import com.lh.demos.base.BaseConstants;
 
-public class CardViewActivity extends AppCompatActivity {
+public class CardViewActivity extends BaseAppCompatActivity {
 
     private CardView mCardView;
     private SeekBar mSeekBar1;
@@ -22,21 +19,9 @@ public class CardViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_view);
-        initToolbar();
-        initView();
-    }
 
-    private void initToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_back_white);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-        TextView tvTitle = findViewById(R.id.toolbar_title);
-        tvTitle.setText(getIntent().getStringExtra(BaseConstants.NAVIGATION_TITLE_KEY));
+        setTitle(getIntent().getStringExtra(BaseConstants.NAVIGATION_TITLE_KEY));
+        initView();
     }
 
     private void initView() {

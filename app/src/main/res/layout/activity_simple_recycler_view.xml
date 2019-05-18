@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.lh.demos.widgets.recyclerview.SimpleRecyclerViewActivity">
 
-    <include layout="@layout/common_header" />
-
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"

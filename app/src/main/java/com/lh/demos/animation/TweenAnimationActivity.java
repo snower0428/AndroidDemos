@@ -1,6 +1,5 @@
 package com.lh.demos.animation;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -14,8 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.lh.demos.R;
+import com.lh.demos.base.BaseAppCompatActivity;
 
-public class TweenAnimationActivity extends AppCompatActivity implements View.OnClickListener {
+public class TweenAnimationActivity extends BaseAppCompatActivity implements View.OnClickListener {
 
     private Button mBtnAlpha;
     private Button mBtnScale;
@@ -31,6 +31,8 @@ public class TweenAnimationActivity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tween_animation);
+
+        setTitle("TweenAnimation");
 
         mBtnAlpha = findViewById(R.id.btn_alpha);
         mBtnAlpha.setOnClickListener(this);

@@ -1,36 +1,22 @@
 package com.lh.demos.widgets.marqueetext;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.lh.demos.R;
+import com.lh.demos.base.BaseAppCompatActivity;
 import com.lh.demos.base.BaseConstants;
 
-public class MarqueeTextActivity extends AppCompatActivity {
+public class MarqueeTextActivity extends BaseAppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_marquee_text);
-        initToolbar();
-        initView();
-    }
 
-    private void initToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_back_white);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-        TextView tvTitle = findViewById(R.id.toolbar_title);
-        tvTitle.setText(getIntent().getStringExtra(BaseConstants.NAVIGATION_TITLE_KEY));
+        setTitle(getIntent().getStringExtra(BaseConstants.NAVIGATION_TITLE_KEY));
+        initView();
     }
 
     private void initView() {

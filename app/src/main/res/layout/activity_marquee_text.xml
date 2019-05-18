@@ -7,8 +7,6 @@
     android:layout_height="match_parent"
     tools:context="com.lh.demos.widgets.marqueetext.MarqueeTextActivity">
 
-    <include layout="@layout/common_header" />
-
     <TextView
         android:id="@+id/tv_text1"
         android:layout_width="80dp"

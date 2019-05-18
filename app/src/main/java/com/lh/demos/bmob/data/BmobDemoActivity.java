@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -15,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lh.demos.R;
-import com.lh.demos.base.BaseActivity;
+import com.lh.demos.base.BaseAppCompatActivity;
 import com.lh.demos.base.BaseConstants;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.OnClickListener;
@@ -29,7 +28,7 @@ import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
 
-public class BmobDemoActivity extends BaseActivity implements View.OnClickListener, BmobItemListener {
+public class BmobDemoActivity extends BaseAppCompatActivity implements View.OnClickListener, BmobItemListener {
 
     private RecyclerView mRecyclerView;
     private BmobRecyclerAdapter mAdapter;
@@ -40,21 +39,8 @@ public class BmobDemoActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bmob_demo);
 
-        initToolbar();
+        setTitle(getIntent().getStringExtra(BaseConstants.NAVIGATION_TITLE_KEY));
         initView();
-    }
-
-    private void initToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_back_white);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-        TextView tvTitle = findViewById(R.id.toolbar_title);
-        tvTitle.setText(getIntent().getStringExtra(BaseConstants.NAVIGATION_TITLE_KEY));
     }
 
     private void initView() {

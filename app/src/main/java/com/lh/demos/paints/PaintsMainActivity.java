@@ -8,14 +8,16 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.lh.demos.R;
+import com.lh.demos.base.BaseAppCompatActivity;
 import com.lh.demos.base.BaseBean;
+import com.lh.demos.base.BaseConstants;
 import com.lh.demos.base.SimpleListAdapter;
 import com.lh.demos.paints.xfermode.XfermodeMainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaintsMainActivity extends AppCompatActivity {
+public class PaintsMainActivity extends BaseAppCompatActivity {
 
     private List<BaseBean> mDataList = new ArrayList<>();
 
@@ -24,6 +26,7 @@ public class PaintsMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paints_main);
 
+        setTitle(getIntent().getStringExtra(BaseConstants.NAVIGATION_TITLE_KEY));
         initData();
 
         ListView listView = findViewById(R.id.list_view);
@@ -34,6 +37,7 @@ public class PaintsMainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 BaseBean bean = mDataList.get(i);
                 Intent intent = new Intent(PaintsMainActivity.this, bean.getItemClass());
+                intent.putExtra(BaseConstants.NAVIGATION_TITLE_KEY, bean.getItemTitle());
                 PaintsMainActivity.this.startActivity(intent);
             }
         });

@@ -7,8 +7,6 @@
     android:layout_height="match_parent"
     tools:context="com.lh.demos.bmob.data.BmobDemoActivity">
 
-    <include layout="@layout/common_header" />
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
