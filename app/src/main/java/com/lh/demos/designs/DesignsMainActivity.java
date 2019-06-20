@@ -13,7 +13,6 @@ import com.lh.demos.base.BaseAppCompatActivity;
 import com.lh.demos.base.BaseBean;
 import com.lh.demos.base.BaseConstants;
 import com.lh.demos.base.SimpleListAdapter;
-import com.lh.demos.designs.command.CommandActivity;
 import com.lh.demos.designs.decorator.DecoratorActivity;
 import com.lh.demos.designs.observer.ObserverActivity;
 import com.lh.demos.designs.strategy.StrategyActivity;
@@ -54,6 +53,5 @@ public class DesignsMainActivity extends BaseAppCompatActivity {
         mDataList.add(new BaseBean("Strategy", StrategyActivity.class));
         mDataList.add(new BaseBean("Observer", ObserverActivity.class));
         mDataList.add(new BaseBean("Decorator", DecoratorActivity.class));
-        mDataList.add(new BaseBean("Command", CommandActivity.class));
     }
 }
