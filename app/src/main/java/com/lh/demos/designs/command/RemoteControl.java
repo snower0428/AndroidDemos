@@ -1,7 +1,7 @@
 package com.lh.demos.designs.command;
 
 /**
- * Created by leihui on 2019/6/20.
+ * Created by leihui on 2019/6/24.
  * RemoteControl
  */
 
@@ -36,10 +36,10 @@ public class RemoteControl {
 
     public String toString() {
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("\n---------- Remote Control ----------\n");
+        stringBuffer.append("\n---------- Remote Control  ----------\n");
         for (int i = 0; i < mOnCommands.length; i++) {
-            stringBuffer.append("[slot " + i + "] " + mOnCommands.getClass().getName()
-                    + "    " + mOffCommands.getClass().getName() + "\n");
+            String str = "[slot" + i + "] " + mOnCommands[i].getClass().getName() + "    " + mOffCommands[i].getClass().getName() + "\n";
+            stringBuffer.append(str);
         }
         return stringBuffer.toString();
     }

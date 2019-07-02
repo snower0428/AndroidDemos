@@ -51,5 +51,6 @@ public class PaintsMainActivity extends BaseAppCompatActivity {
         mDataList.add(new BaseBean("Draw Text", DrawTextActivity.class));
         mDataList.add(new BaseBean("Bezier", BezierActivity.class));
         mDataList.add(new BaseBean("Xfermode", XfermodeMainActivity.class));
+        mDataList.add(new BaseBean("FillType", FillTypeActivity.class));
     }
 }
