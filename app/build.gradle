@@ -1,11 +1,12 @@
 apply plugin: 'com.android.application'
+apply from: '../constants.gradle'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion project.ext.compileSdkVersion
     defaultConfig {
         applicationId "com.lh.demos"
-        minSdkVersion 16
-        targetSdkVersion 26
+        minSdkVersion project.ext.minSdkVersion
+        targetSdkVersion project.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -19,38 +20,47 @@ android {
 
     //Bmob
     useLibrary 'org.apache.http.legacy'
+
+    lintOptions {
+        disable 'GoogleAppIndexingWarning'
+    }
 }
 
 dependencies {
-    androidTestCompile('com.android.support:support-annotations:26.1.0') {
+    androidTestImplementation("com.android.support:support-annotations:$supportLibraryVersion") {
         force = true
     }
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation "com.android.support.constraint:constraint-layout:1.1.3"
 
-    compile project(':lib-core')
+    testImplementation "junit:junit:4.12"
+    androidTestImplementation "com.android.support.test:runner:1.0.2"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:3.0.2"
 
-    implementation "com.android.support:recyclerview-v7:26.1.0"
-    implementation "com.android.support:cardview-v7:26.1.0"
-    implementation "com.android.support:design:26.1.0"
+    implementation project(':lib-core')
 
-    compile 'com.jaeger.statusbarutil:library:1.4.0'
-
-    //Bmob
-    implementation 'cn.bmob.android:bmob-sdk:3.6.9' //Bmob的数据服务SDK
+    //
+    // Bmob
+    // ============================================================
+    //
+    // Bmob的数据服务SDK
+    implementation 'cn.bmob.android:bmob-sdk:3.6.9'
     implementation "io.reactivex.rxjava2:rxjava:2.2.2"
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
     implementation 'com.squareup.okio:okio:2.1.0'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.okhttp3:okhttp:3.12.0'
 
-    //Bmob的消息推送SDK
+    // Bmob的消息推送SDK
     implementation 'cn.bmob.android:bmob-push:1.0.2'
+    //
+    // ============================================================
+    //
 
-    //Dialog
+    implementation "com.android.support:cardview-v7:$supportLibraryVersion"
+    implementation "com.android.support:design:$supportLibraryVersion"
+
     implementation 'com.orhanobut:dialogplus:1.11@aar'
+    implementation 'com.jaeger.statusbarutil:library:1.4.0'
+    implementation 'org.litepal.android:java:3.0.0'
 }

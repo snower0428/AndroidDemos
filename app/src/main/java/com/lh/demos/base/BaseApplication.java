@@ -3,6 +3,8 @@ package com.lh.demos.base;
 import android.app.Application;
 import android.util.Log;
 
+import org.litepal.LitePal;
+
 import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobInstallation;
@@ -21,8 +23,13 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        initLitePal();
         initBmobSDK();
         initBmobPush();
+    }
+
+    private void initLitePal() {
+        LitePal.initialize(this);
     }
 
     private void initBmobSDK() {
