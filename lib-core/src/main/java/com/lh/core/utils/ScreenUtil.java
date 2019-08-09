@@ -157,10 +157,7 @@ public class ScreenUtil {
 	 */
 	public static boolean isLargeScreen() {
 		int w = getScreenWH()[0];
-		if (w >= 480)
-			return true;
-		else
-			return false;
+		return w >= 480;
 	}
 
 	/**
@@ -182,11 +179,7 @@ public class ScreenUtil {
 	public static boolean isExLardgeScreenAndLowDensity()
 	{
 		//是大屏，且屏幕密度小于指的基准密度
-		if(isExLardgeScreen() && getDensity()<LARGE_SCREEN_DENSITY)
-		{
-			return true;
-		}
-		return false;
+		return isExLardgeScreen() && getDensity() < LARGE_SCREEN_DENSITY;
 	}
 	
 	/**
@@ -205,11 +198,7 @@ public class ScreenUtil {
 	public static boolean isSuperLargeScreenAndLowDensity()
 	{
 		//是超大屏，且屏幕密度小于指的基准密度
-		if(isSuperLargeScreen() && getDensity()<SUPER_LARGE_SCREEN_DENSITY)
-		{
-			return true;
-		}
-		return false;
+		return isSuperLargeScreen() && getDensity() < SUPER_LARGE_SCREEN_DENSITY;
 	}
 	
 	/**
@@ -226,10 +215,7 @@ public class ScreenUtil {
 	 * @return
 	 */
 	public static boolean isLargeScreenAndSuperLowDensity(){
-		if(isMLargeScreen() && getDensity()<= LARGE_SCREEN_SUPER_LOW_DENSITY){
-			return true;
-		}
-		return false;
+		return isMLargeScreen() && getDensity() <= LARGE_SCREEN_SUPER_LOW_DENSITY;
 	}
 	
 	/**
@@ -238,10 +224,7 @@ public class ScreenUtil {
 	 */
 	public static boolean isLowScreen() {
 		int w = getScreenWH()[0];
-		if (w < 320)
-			return true;
-		else
-			return false;
+		return w < 320;
 	}
 	
 	/**
@@ -250,10 +233,7 @@ public class ScreenUtil {
 	 */
 	public static boolean is320X480Screen() {
 		int[] wh=ScreenUtil.getScreenWH();
-		if (wh[0] == 320 && wh[1]==480){
-			return true;
-		}
-		return false;
+		return wh[0] == 320 && wh[1] == 480;
 	}
 	
 	/**
@@ -299,10 +279,7 @@ public class ScreenUtil {
 	 * @return boolean
 	 */
 	public static boolean isOrientationLandscape(Context context) {
-		if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-			return true;
-		}
-		return false;
+		return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 	}
 
 	/**
@@ -492,11 +469,7 @@ public class ScreenUtil {
 		double x = Math.pow(sW/ dm.xdpi, 2);
 		double y = Math.pow(sH / dm.ydpi, 2);
 		double screenInches = Math.sqrt(x + y);
-		if(screenInches>6 && dm.densityDpi<240) {
-			return true;
-		}else{
-			return  false;
-		}
+		return screenInches > 6 && dm.densityDpi < 240;
 
 	}
 	/**
@@ -514,9 +487,7 @@ public class ScreenUtil {
 		double screenInches = Math.sqrt(x + y);
 		if (screenInches > 5 && (dm.densityDpi - dm.xdpi) > 0) {
 			float rate = (dm.densityDpi - dm.xdpi) / dm.densityDpi;
-			if (rate > 0.125f) {
-				return true;
-			}
+			return rate > 0.125f;
 		}
 		return false;
 	}
@@ -544,7 +515,7 @@ public class ScreenUtil {
 	 */
 	public static int[] getDisplayScreenResolution(Context context)
 	{
-		int result[] = new int[2];
+		int[] result = new int[2];
 		int ver = Build.VERSION.SDK_INT;
 
 		final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);

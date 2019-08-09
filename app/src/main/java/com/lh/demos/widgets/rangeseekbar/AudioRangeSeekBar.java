@@ -368,10 +368,7 @@ public class AudioRangeSeekBar<T extends Number> extends View{
         T selectMinValue = getSelectedMinValue();
         T selectMaxValue = getSelectedMaxValue();
         int interval = Integer.valueOf(selectMaxValue.toString()) - Integer.valueOf(selectMinValue.toString());
-        if (interval > mThumbInterval) {
-            return true;
-        }
-        return false;
+        return interval > mThumbInterval;
     }
 
     /**

@@ -41,7 +41,7 @@ public class PathTextView extends View {
     private Path mArcPath;
     private RectF mArcRect;
 
-    private float mTextPos[];
+    private float[] mTextPos;
 
     private Path mCirclePath1;
     private Path mCirclePath2;
@@ -130,7 +130,7 @@ public class PathTextView extends View {
         mPaint.setColor(Color.RED);
         mRoundRectPath.addRoundRect(mRoundRect1, 10, 15, Path.Direction.CCW);
         canvas.drawPath(mRoundRectPath, mPaint);
-        float radii[] = {10, 15, 20, 25, 30, 35, 40, 45};
+        float[] radii = {10, 15, 20, 25, 30, 35, 40, 45};
         mRoundRectPath.addRoundRect(mRoundRect2, radii, Path.Direction.CCW);
         canvas.drawPath(mRoundRectPath, mPaint);
 

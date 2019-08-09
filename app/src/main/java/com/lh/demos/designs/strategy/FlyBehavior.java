@@ -7,5 +7,5 @@ package com.lh.demos.designs.strategy;
 
 public interface FlyBehavior {
 
-    public void fly();
+    void fly();
 }

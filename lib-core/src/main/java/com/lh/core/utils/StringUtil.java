@@ -66,10 +66,7 @@ public final class StringUtil {
 	 * @return boolean
 	 */
 	public static boolean isEmpty(CharSequence s) {
-		if ((s == null) || (s.length() <= 0)) {
-			return true;
-		}
-		return false;
+		return (s == null) || (s.length() <= 0);
 	}
 	
 	/**
